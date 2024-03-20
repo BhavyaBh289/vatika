@@ -2,16 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User Points Dashboard</title>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <ul>
-        {% for username, user in users.items() %}
-        <li>{{ username }} - <a href="{{ url_for('view_points', username=username) }}">View Points</a></li>
+    <h1>User Points Dashboard</h1>
+    <table border="1">
+        <tr>
+            <th>Username</th>
+            <th>Points attendance</th>
+            <th>Points gatha</th>
+            <th>Cumulative Points</th>
+        </tr>
+        {% for username, user_data in users.items() %}
+        <tr>
+            <td>{{ username }}</td>
+            <td>{{ user_data.points_attendance }}</td>
+            <td>{{ user_data.points_gatha }}</td>
+            <td>{{ user_data.cumulative_points }}</td>
+        </tr>
         {% endfor %}
-    </ul>
-    <a href="{{ url_for('get_username') }}">Add Points</a>
+    </table>
+    <br>
+    <form method="post" action="{{ url_for('give_points') }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label for="points_attendance">Points attendance:</label>
+        <input type="number" name="points_attendance" required>
+        <br>
+        <label for="points_gatha">Points gatha:</label>
+        <input type="number" name="points_gatha" required>
+        <br>
+        <button type="submit">Give Points</button>
+    </form>
 </body>
 </html>
