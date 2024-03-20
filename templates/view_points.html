@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Points</title>
+</head>
+<body>
+    <h1>User Points</h1>
+    <p><strong>Username:</strong> {{ username }}</p>
+    <p><strong>Attendance Points:</strong> {{ user.points_attendence }}</p>
+    <p><strong>Gatha Points:</strong> {{ user.points_gatha }}</p>
+    <p><strong>Cumulative Points:</strong> {{ user.cumulative_points }}</p>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

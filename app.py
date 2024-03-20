@@ -9,6 +9,15 @@ def index():
     users = get_users()
     return render_template('index.html', users=users)
 
+@app.route('/view_points/<username>')
+def view_points(username):
+    users = get_users()
+    if username in users:
+        user = users[username]
+        return render_template('view_points.html', username=username, user=user)
+    else:
+        return "User not found"
+
 @app.route('/give_points', methods=['POST'])
 def give_points():
     username = request.form.get('username')
