@@ -5,9 +5,22 @@ import json
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def get_username():
+    return render_template('get_username.html')
+
+@app.route('/admin')
+def admin_index():
     users = get_users()
     return render_template('index.html', users=users)
+
+@app.route('/admin/give_points', methods=['POST'])
+def give_points():
+    username = request.form.get('username')
+    points_attendence = int(request.form.get('points_attendence'))
+    points_gatha = int(request.form.get('points_gatha'))
+
+    give_user_points(username, points_attendence, points_gatha)
+    return redirect(url_for('admin_index'))
 
 @app.route('/view_points/<username>')
 def view_points(username):
@@ -17,15 +30,6 @@ def view_points(username):
         return render_template('view_points.html', username=username, user=user)
     else:
         return "User not found"
-
-@app.route('/give_points', methods=['POST'])
-def give_points():
-    username = request.form.get('username')
-    points_attendence = int(request.form.get('points_attendence'))
-    points_gatha = int(request.form.get('points_gatha'))
-
-    give_user_points(username, points_attendence, points_gatha)
-    return redirect(url_for('index'))
 
 def get_users():
     if not os.path.exists('users.json'):
